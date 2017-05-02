@@ -10,5 +10,5 @@ The game is planned to include following features:
 
 Features will be added and/or deleted depending on how the project is going. 
 
-We are to begin with going test our code with unit test while we are developing our game. 
+We are going to begin testing our code with unit tests while we are developing our game. 
 Later on we may find other ways to test the game. 
