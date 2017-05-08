@@ -26,11 +26,11 @@ public class main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Canvas canvas;
-        canvas = new Canvas(1200, 1024);
-        gb = new Gameboard();
+        canvas = new Canvas(1200, 1024); //Creates a canvas with the dimensions 1200x1024
+        gb = new Gameboard();   
 
-        gb.setCanvas(canvas);
-        gb.start(primaryStage);
+        gb.setCanvas(canvas);           //Sets this canvas to be used by the gameBoard object
+        gb.start(primaryStage);         //Draws the board
 
         gb.movePiece(1,6); //The piece moves from 1 to 6
         gb.movePiece(6,7);  //The piece moves from 6 to 7
@@ -40,6 +40,6 @@ public class main extends Application {
 
         root.getChildren().add(canvas);
         primaryStage.setScene(new Scene(root));
-        primaryStage.show();
+        primaryStage.show(); //Displays it all
     }
 }
