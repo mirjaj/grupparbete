@@ -1,19 +1,22 @@
-import java.util.ArrayList;
 /**
+ * Temporary class. I needed a player to work on my question logic.
  * @Author: Mirja Johnsson
  */
 public class Player {
 
-    private ArrayList<Boolean> answers;
-    public boolean finished;
+    private int points;
+
 
     public Player() {
-        answers = new ArrayList<>(7);
-        finished = false;
+        points = 0;
     }
 
 
     public boolean isFinished() {
-        return finished;
+        return points >= 10;
+    }
+
+    public void increasePoints() {
+        points+=5;
     }
 }
