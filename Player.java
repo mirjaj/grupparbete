@@ -24,40 +24,40 @@ public class Player  {
     }
 
     /**
-    * Generates a random number between 1 and 6.
-    * It also updates the players location on the board depending on the
-    * number that was generated.
-    * @return A random number from 1 to 6
-    */
-   public int rollDiceAndMove() {
-       previousSquare = currentSquare;
-       Random randomNumber = new Random();
-       int number = randomNumber.nextInt(6) + 1;
-       int theSum = currentSquare + number;
-       if(theSum > 24) {
-           currentSquare = theSum%24;
-       }
-       else {
-           currentSquare += number;
-       }
-       return number;
-   }
-
-    /**
-    * Returns the players position on the board.
-    * @return the current position of the players piece.
-    */
-    public int getCurrentSquare() {
-      return currentSquare;
+     * Generates a random number between 1 and 6.
+     * It also updates the players location on the board depending on the
+     * number that was generated.
+     * @return A random number from 1 to 6
+     */
+    public int rollDiceAndMove() {
+        previousSquare = currentSquare;
+        Random randomNumber = new Random();
+        int number = randomNumber.nextInt(6) + 1;
+        int theSum = currentSquare + number;
+        if(theSum > 24) {
+            currentSquare = theSum%24;
+        }
+        else {
+            currentSquare += number;
+        }
+        return number;
     }
 
     /**
-    * Returns the players previous position on the board.
-    * @return the previous position of the players piece.
-    */
-   public int getPreviousSquare() {
-       return previousSquare;
-   }
+     * Returns the players position on the board.
+     * @return the current position of the players piece.
+     */
+    public int getCurrentSquare() {
+        return currentSquare;
+    }
+
+    /**
+     * Returns the players previous position on the board.
+     * @return the previous position of the players piece.
+     */
+    public int getPreviousSquare() {
+        return previousSquare;
+    }
 
     /**
      * Returns the players name.
@@ -76,11 +76,17 @@ public class Player  {
     }
 
     /**
-     * Increment the players score by 5 if the player gives the right answer.
+     * Increment the players score by 5.
      */
     public void setScore() {
-    if(rightAnswer) { //If your answer to the question is correct (have method in Question class that checks if correct).
-           score += 5;
-       }
+            score += 5;
+        }
+
+    /**
+     * Checks if the player has reached maximum score.
+     * @return True if player has reached the score 20 or higher.
+     */
+    public boolean isFinished() {
+        return score >=20;
+     }
     }
-}
