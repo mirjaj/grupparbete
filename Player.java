@@ -8,19 +8,18 @@ import  java.util.Random;
 public class Player  {
     private int score; //Players score
     private String name; //Name of the player
-    private int currentSquare; //the square where the players piece is to be redrwan.
-    private int previousSquare; //the square where the players piece was on the board.
+    private int currentSquare; //The current position of the players piece.
+    private int previousSquare; //The previous position of the players piece.
 
     /**
      * Creates a player with a name of your choosing and starts with the score 0.
      * It also positions the players piece on square one.
-     * @param playerName sets the name of the player.
      */
-    public Player(String playerName) {
-        score = 0; //initial score
-        name = playerName; //The given name of the player
+    public Player() {
+        score = 0; //initial score.
+        name = "Player"; //The default name of the player.
         previousSquare = 1;
-        currentSquare = 1;
+        currentSquare = 1; //Initial position of the players piece.
     }
 
     /**
@@ -48,6 +47,7 @@ public class Player  {
      * @return the current position of the players piece.
      */
     public int getCurrentSquare() {
+
         return currentSquare;
     }
 
@@ -57,6 +57,14 @@ public class Player  {
      */
     public int getPreviousSquare() {
         return previousSquare;
+    }
+
+    /**
+     * Change the default name of the player.
+     * @param playerName Choose a name to the player.
+     */
+    public void setName(String playerName){
+        name = playerName;
     }
 
     /**
@@ -76,11 +84,11 @@ public class Player  {
     }
 
     /**
-     * Increment the players score by 5.
+     * Increment the players score by a chosen number.
      */
-    public void setScore() {
-            score += 5;
-        }
+    public void setScore(int number) {
+        score += number;
+    }
 
     /**
      * Checks if the player has reached maximum score.
@@ -88,5 +96,35 @@ public class Player  {
      */
     public boolean isFinished() {
         return score >=20;
-     }
     }
+
+    /**
+     * Represents an NPC that has a low chance of giving the right answer in the trivia game.
+     * @return True if the random number generator returns the number 2.
+     */
+    public boolean easyNPC() {
+        Random random = new Random();
+        int number = random.nextInt(5);
+        return number == 2;
+    }
+
+    /**
+     * Represents an NPC that has a better chance of giving the right answer, compared to the easy NPC, in the trivia game.
+     * @return True if the random number generator returns the number 3 or 4.
+     */
+    public boolean mediumNPC() {
+        Random random = new Random();
+        int number = random.nextInt(5);
+        return number >= 3;
+    }
+
+    /**
+     * Represents an NPC that has a high chance of giving the right answer in the trivia game.
+     * @return True if the random number generator returns the number 2, 3 or 4.
+     */
+    public boolean hardNPC() {
+        Random random = new Random();
+        int number = random.nextInt(5);
+        return number >= 2;
+    }
+}
