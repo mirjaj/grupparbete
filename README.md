@@ -27,6 +27,8 @@ The questions are structurized into six various categories, with five of them be
 related to the Computer Scientist programme at KTH. The sixth category will involve general questions
 which can be everything, as an example one such question is "How many times did Arnold win Mr Olympia?".
 
+![GitHub Logo](/Screenshots/GameBoardImage.png)
+
 #### Java FX
 This game was created mainly using the framwork Java FX. All the buttons, images and graphical figures 
 have been made using the Java FX framework.
