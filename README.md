@@ -12,7 +12,7 @@
  Later on we may find other ways to test the game. 
  
  #### How to play
-The player is at first presented by a main menu, if the player wants to play the player can proceed by clicking "start game".
+The player is at first presented by a main menu, if the player wants to play the game the player can proceed by clicking "start game".
 
 The player plays the game by clicking the button to roll a dice. The player then moves, 
 and is to answer questions, mostly related to programming and mathmatics, but there is also a category for general questions. 
@@ -36,14 +36,15 @@ This game was created mainly using the framwork Java FX. All the buttons, images
 have been made using the Java FX framework.
 
 Java FX is a set of packages that enables the user to program a GUI. If you want to read more about the
-Java FX framework you can look it up here: [Java FX]([http://docs.oracle.com/javafx/2/overview/jfxpub-overview.htm)
+Java FX framework you can look it up here: 
+[Java FX]([http://docs.oracle.com/javafx/2/overview/jfxpub-overview.htm)
 
 #### How to install
 This game is run from the main class. That means that the player needs to
 be able to run java programs in order to play the game. 
 
 Also, it is worth to note that the player needs to have the background image which is in the main menu, 
-stored in a specified path to run the program.
+stored in a specified path to run the program along with the other images used in the game.
 
 No extention libraries are required though, since Java FX is a standard library. The player
 needs to have all the assosciated classes in order to play the game. 
