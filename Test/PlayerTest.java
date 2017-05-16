@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @version 2017-05-14.
  */
 class PlayerTest {
-    private Player player = new Player();
+    private Player player = new Player("Player");
 
     /**
      * Tests if the getCurrentSquare method.
@@ -49,8 +49,8 @@ class PlayerTest {
     @Test
     void getScore() {
         assertEquals(0, player.getScore());
-        player.setScore(10);
-        assertEquals(10, player.getScore());
+        player.setScore();
+        assertEquals(5, player.getScore());
     }
 
     /**
@@ -58,8 +58,11 @@ class PlayerTest {
      */
     @Test
     void isFinished() {
-        assertFalse(player.isFinished());
-        player.setScore(20);
-        assertTrue(player.isFinished());
+      assertFalse(player.isFinished());
+      player.setScore();
+      player.setScore();
+      player.setScore();
+      player.setScore();
+      assertTrue(player.isFinished());
     }
 }
