@@ -37,7 +37,7 @@ have been made using the Java FX framework.
 
 Java FX is a set of packages that enables the user to program a GUI. If you want to read more about the
 Java FX framework you can look it up here: 
-[Java FX]([http://docs.oracle.com/javafx/2/overview/jfxpub-overview.htm)
+[Java FX](http://docs.oracle.com/javafx/2/overview/jfxpub-overview.htm)
 
 #### How to install
 This game is run from the main class. That means that the player needs to
