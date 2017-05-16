@@ -33,3 +33,20 @@ have been made using the Java FX framework.
 
 Java FX is a set of packages that enables the user to program a GUI. If you want to read more about the
 Java FX framework you can look it up here: [Java FX]([http://docs.oracle.com/javafx/2/overview/jfxpub-overview.htm)
+
+#### How to install
+This game is run from the main class. That means that the player needs to
+be able to run java programs in order to play the game. 
+
+Also, it is worth to note that the player needs to have the background image which is in the main menu, 
+stored in a specified path to run the program.
+
+No extention libraries are required though, since Java FX is a standard library. The player
+needs to have all the assosciated classes in order to play the game. 
+
+These required classes are:
+* main.java
+* Game.java
+* Gameboard.java
+* Player.java
+* Question.java
