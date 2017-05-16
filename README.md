@@ -14,7 +14,7 @@
  #### How to play
 
 The player plays the game by clicking the button to roll a dice. The player then moves, 
-and is to answer questions, mostly related to programming. 
+and is to answer questions, mostly related to programming and mathmatics, but there is also a category for general questions. 
 
 If the player answers a question correctly, her or she is awarded points.
 The player who first reaches the required amount of points to win, wins the game.
@@ -27,7 +27,8 @@ The questions are structurized into six various categories, with five of them be
 related to the Computer Scientist programme at KTH. The sixth category will involve general questions
 which can be everything, as an example one such question is "How many times did Arnold win Mr Olympia?".
 
-![GitHub Logo](/Screenshots/GameBoardImage.png)
+![The main menu](mainMenuImage.png)
+![The gameboard](/Screenshots/GameBoardImage.png)
 
 #### Java FX
 This game was created mainly using the framwork Java FX. All the buttons, images and graphical figures 
