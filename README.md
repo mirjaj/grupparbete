@@ -27,7 +27,7 @@ The questions are structurized into six various categories, with five of them be
 related to the Computer Scientist programme at KTH. The sixth category will involve general questions
 which can be everything, as an example one such question is "How many times did Arnold win Mr Olympia?".
 
-![The main menu](mainMenuImage.png)
+![The main menu](/Screenshots/mainMenuImage.png)
 ![The gameboard](/Screenshots/GameBoardImage.png)
 
 #### Java FX
