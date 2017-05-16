@@ -14,10 +14,11 @@ public class Player  {
     /**
      * Creates a player with a name of your choosing and starts with the score 0.
      * It also positions the players piece on square one.
+     * @param playerName Choose a name for the player.
      */
-    public Player() {
+    public Player(String playerName) {
         score = 0; //initial score.
-        name = "Player"; //The default name of the player.
+        name = playerName;
         previousSquare = 1;
         currentSquare = 1; //Initial position of the players piece.
     }
@@ -86,8 +87,8 @@ public class Player  {
     /**
      * Increment the players score by a chosen number.
      */
-    public void setScore(int number) {
-        score += number;
+    public void setScore() {
+        score += 5;
     }
 
     /**
@@ -126,5 +127,14 @@ public class Player  {
         Random random = new Random();
         int number = random.nextInt(5);
         return number >= 2;
+    }
+
+    /**
+     * Use to update the initial position of the NPC:s pieces on the board.
+     * @param number Give position to the NPC on the board.
+     */
+    public void setPositionNPC(int number) {
+        previousSquare = number;
+        currentSquare = number;
     }
 }
