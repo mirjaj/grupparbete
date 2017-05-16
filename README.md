@@ -50,8 +50,9 @@ No extention libraries are required though, since Java FX is a standard library.
 needs to have all the assosciated classes in order to play the game. 
 
 These required classes are:
-* main.java
+* Main.java
 * Game.java
 * Gameboard.java
 * Player.java
 * Question.java
+* MenuButtons.java
