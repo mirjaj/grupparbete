@@ -12,6 +12,7 @@
  Later on we may find other ways to test the game. 
  
  #### How to play
+The player is at first presented by a main menu, if the player wants to play the player can proceed by clicking "start game".
 
 The player plays the game by clicking the button to roll a dice. The player then moves, 
 and is to answer questions, mostly related to programming and mathmatics, but there is also a category for general questions. 
