@@ -55,7 +55,6 @@ needs to have all the assosciated classes in order to play the game.
 
 These required classes are:
 * Main.java
-* Game.java
 * Gameboard.java
 * Player.java
 * Question.java
