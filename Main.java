@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -36,19 +37,27 @@ public class Main extends Application {
     private Question currentQuestion;
     private String[] answerAlternatives;
     private int questionCounter;
+    private int currentPlayer;
     private int difficulty;
+    private TextArea textArea;
 
     /**
-     * Creates a player, the game board and canvas.
+     * Creates a player, NPC:s,the game board, canvas and a text area.
+     * It also sets the difficulty to medium and positions the NPC:s
+     * pieces on the board.
      */
     public Main() {
-        player1 = new Player("Player1");
-        player2 = new Player("NPC1");
-        player3 = new Player("NPC2");
-        player4 = new Player("NPC3");
+        player1 = new Player("You");
+        player2 = new Player("Player2");
+        player3 = new Player("Player3");
+        player4 = new Player("Player4");
         canvas = new Canvas(1150, 950);
         gb = new Gameboard();
         difficulty = 2; //default difficulty is medium.
+        textArea = new TextArea();
+        player2.setPositionNPC(7);
+        player3.setPositionNPC(13);
+        player4.setPositionNPC(19);
     }
 
     @Override
@@ -71,15 +80,15 @@ public class Main extends Application {
         backgroundMenu.setFitHeight(950);
 
         /**
-         * Main menu for the game.
-         */
-         Pane layout = new Pane();
-         layout.setPrefSize(1150,950);
+        * Main menu for the game.
+        */
+        Pane layout = new Pane();
+        layout.setPrefSize(1150,950);
 
-         //Create a VBox layout with spacing 10 and give it a specific position.
-         VBox menu1 = new VBox(10);
-         menu1.setLayoutX(400);
-         menu1.setLayoutY(250);
+        //Create a VBox layout with spacing 10 and give it a specific position.
+        VBox menu1 = new VBox(10);
+        menu1.setLayoutX(400);
+        menu1.setLayoutY(250);
 
         //Create a second VBox layout for when you hit change difficulty.
         VBox menu2 = new VBox(10);
@@ -105,12 +114,10 @@ public class Main extends Application {
         changeDifficulty.setOnMouseClicked(e -> {
             layout.getChildren().remove(menu1);
             layout.getChildren().add(menu2);
-
         });
         easy.setOnMouseClicked(e -> difficulty = 1);
         medium.setOnMouseClicked(e -> difficulty = 2);
         hard.setOnMouseClicked(e -> difficulty = 3);
-
         back.setOnMouseClicked(e -> {
             layout.getChildren().remove(menu2);
             layout.getChildren().add(menu1);
@@ -123,8 +130,8 @@ public class Main extends Application {
 
         /**
          * The actual game.
+         * Create a button with text and an image.
          */
-        //Create a button with text with an image.
         buttonD  = new Button("Throw dice", dice);
         buttonD.setLayoutX(980);
         buttonD.setLayoutY(350);
@@ -136,26 +143,79 @@ public class Main extends Application {
         score.setFont(Font.font(null, FontWeight.BOLD, 24));
         score.setLayoutX(980);
         score.setLayoutY(30);
-        score.setText("Score \n" + player1.getName() + ":  " + String.valueOf(player1.getScore()) );
+        updateScore();
 
-        //Event action for buttons
-        buttonD.setOnAction(e -> {
-            player1.rollDiceAndMove();
-            player2.rollDiceAndMove();
-            player3.rollDiceAndMove();
-            player4.rollDiceAndMove();
-            gb.movePlayer(player1.getPreviousSquare(), player1.getCurrentSquare());
-            gb.moveAIOne(player2.getPreviousSquare(), player2.getCurrentSquare());
-            gb.moveAITwo(player3.getPreviousSquare(), player3.getCurrentSquare());
-            gb.moveAIThree(player4.getPreviousSquare(), player4.getCurrentSquare());
-            openWindow(questionCounter,primaryStage);
-            npcScore();
-            score.setText("Score \n" +
-                    player1.getName() + ":  " + String.valueOf(player1.getScore()) + "\n" +
-                    player2.getName() + ":  " + String.valueOf(player2.getScore()) + "\n" +
-                    player3.getName() + ":  " + String.valueOf(player3.getScore()) + "\n" +
-                    player4.getName() + ":  " + String.valueOf(player4.getScore()));
-        });
+        //Update the text area in the game.
+            updateAction("Welcome to the game! Click on the button throw dice to start.");
+
+            //Event action for buttons
+            buttonD.setOnAction((ActionEvent e) -> {
+                //player1.rollDiceAndMove();
+                updateAction("You got a " + String.valueOf(player1.rollDiceAndMove()));
+                gb.movePlayer(player1.getPreviousSquare(), player1.getCurrentSquare());
+                openWindow(questionCounter, primaryStage);
+                updateScore();
+
+                if(player1.isFinished()){
+                    updateAction(gb.gameOver(player1));
+                    currentPlayer = 0;
+                    //Setting current player to 0 prevents the turn to roll over after the game is over.
+                }
+                while(currentPlayer == 2){
+                    updateAction("Player2 got a " + String.valueOf(player2.rollDiceAndMove()));
+                    gb.moveAIOne(player2.getPreviousSquare(), player2.getCurrentSquare());
+                    if(npcScore(player2)) {
+                        updateScore();
+                        updateAction("Player 2 answered correctly");
+                    }
+                    else{
+                        updateAction("Player 2 answered incorrectly");
+                        updateScore();
+                        currentPlayer = 3;
+
+                        if(player2.isFinished()){
+                            updateAction(gb.gameOver(player2));
+                            currentPlayer = 0;
+                        }
+                    }
+                }
+                while(currentPlayer == 3){
+                    updateAction("Player3 got a " + String.valueOf(player3.rollDiceAndMove()));
+                    gb.moveAITwo(player3.getPreviousSquare(), player3.getCurrentSquare());
+                    if(npcScore(player3)) {
+                        updateScore();
+                        updateAction("Player 3 answered correctly");
+                    }
+                    else{
+                        updateAction("Player 3 answered incorrectly");
+                        updateScore();
+                        currentPlayer = 4;
+
+                        if(player3.isFinished()){
+                            updateAction(gb.gameOver(player3));
+                            currentPlayer = 0;
+                        }
+                    }
+                }
+                while(currentPlayer == 4){
+                    updateAction("Player4 got a " + String.valueOf(player4.rollDiceAndMove()));
+                    gb.moveAIThree(player4.getPreviousSquare(), player4.getCurrentSquare());
+                    if(npcScore(player4)) {
+                        updateScore();
+                        updateAction("Player 4 answered correctly");
+                    }
+                    else{
+                        updateAction("Player 4 answered incorrectly");
+                        updateScore();
+                        currentPlayer = 1;
+
+                        if(player4.isFinished()){
+                            updateAction(gb.gameOver(player4));
+                            currentPlayer = 0;
+                        }
+                    }
+                }
+            });
 
         //Initialize canvas with piece
         gb.setCanvas(canvas);
@@ -163,16 +223,16 @@ public class Main extends Application {
         canvas = gb.getCanvas();
         gb.movePlayer(player1.getPreviousSquare(), player1.getCurrentSquare());
 
-        //Update the NPC:s pieces position so that they start on the right block.
-        player2.setPositionNPC(7);
-        player3.setPositionNPC(13);
-        player4.setPositionNPC(19);
+        //Position and resize textArea.
+        textArea.setLayoutX(980);
+        textArea.setLayoutY(600);
+        textArea.setMaxSize(400, 200);
+        textArea.setWrapText(true);
+        textArea.setEditable(false);
 
         //Set layout and add the components.
         Group layout2 = new Group();
-        layout2.getChildren().add(canvas);
-        layout2.getChildren().add(buttonD);
-        layout2.getChildren().add(score);
+        layout2.getChildren().addAll(canvas, buttonD, score, textArea);
 
         //Display the scenes
         theGame = new Scene(layout2);
@@ -186,25 +246,15 @@ public class Main extends Application {
      */
     private void openWindow(int i, Stage primaryStage) {
 
-        if (player1.isFinished()) {
-            gb.gameOver(player1);
-        }
-
-        else if(player2.isFinished()) {
-            gb.gameOver(player2);
-        }
-
-        else if(player3.isFinished()) {
-            gb.gameOver(player3);
-        }
-
-        else if(player4.isFinished()) {
-            gb.gameOver(player4);
-        }
-
-        else if (i >= questions.size()) {
-            gb.gameOver();
-        }
+      if (player1.isFinished()) {
+       updateAction(gb.gameOver(player1));
+   }
+   else if (player2.isFinished()) {
+       updateAction(gb.gameOver(player2));
+   }
+   else if (i >= questions.size()) {
+       updateAction(gb.gameOver());
+   }
 
         else {
             qWindow = new Stage();
@@ -236,7 +286,6 @@ public class Main extends Application {
 
             questionScene = new Scene(layout, 700, 350);
             qWindow.setScene(questionScene);
-
             qWindow.showAndWait();
         }
     }
@@ -258,15 +307,15 @@ public class Main extends Application {
         }
         else if (alt2.isSelected() && alt2.getText().equalsIgnoreCase(correctAnswer)) {
             player1.setScore();
-
         }
         else if (alt3.isSelected() && alt3.getText().equalsIgnoreCase(correctAnswer)) {
             player1.setScore();
-
         }
+        else {
+           currentPlayer = 2; //The player answers incorrectly.
+       }
 
         qWindow.close();
-
         window.setScene(theGame);
 
     }
@@ -276,45 +325,67 @@ public class Main extends Application {
      */
     private void initialiseQuestions() {
 
-        Question q1 = new Question("How many times did Jon Pall Sigmarsson win the 'World's Strongest Man' competition?", "4", "Pumping Iron", "1","4","5");
+      Question q1 = new Question("How many times did Jon Pall Sigmarsson win the 'World's Strongest Man' competition?", "4", "Pumping Iron", "1", "4", "5");
         Question q2 = new Question("How many times did Arnold win Mr Olympia?", "6", "Pumping Iron", "4", "5", "6");
+        Question q3 = new Question("Which of the following is not a primitive datatype in Java?", "A String", "Java", "An int", "A boolean", "A String");
+        Question q4 = new Question("Which of the following algorithms is a shuffling algorithm?", "Fisher Yates", "Algorithms and Datastructures", "Insertion", "Fisher Yates", "Dijkstra's algorithm");
+        Question q5 = new Question("What is the derivate of ln(x^2)", "2/x", "Calculus", "1/x", "1/2x", "2/x");
+        Question q6 = new Question("Which of the following numbers is a prime number", "53", "Discrete Mathmatics", "14", "53", "68");
+        Question q7 = new Question("When will insertion sort be your worst enemy?", "When the thing you want to sort is in descending order.", "Algorithms and Data structures", "When the thing you want to sort is in ascending order.","When the list is long","When the thing you want to sort is in descending order.");
+        Question q8 = new Question("Is this true?    |x|+|y| > |x+y| ", "Sometimes", "Calculus", "No", "Sometimes", "Yes");
+        Question q9 = new Question("What makes a dish sushi?", "Having it with rice", "Food", "Adding raw fish", "Having it with rice", "Adding soy");
+        Question q10 = new Question("What is the secret to being a good chef?", "Butter and Cream", "Food", "Schooling", "Butter and Cream", "Wearing the Chef hat");
+
         questions.add(q1);
         questions.add(q2);
+        questions.add(q3);
+        questions.add(q4);
+        questions.add(q5);
+        questions.add(q6);
+        questions.add(q7);
+        questions.add(q8);
+        questions.add(q9);
+        questions.add(q10);
+
         Collections.shuffle(questions);
     }
 
     /**
-     * A method that sets the score of the NPC:s depending on if the answer right.
-     * If the difficulty is higher than the NPC:s have a higher chance of answering right.
+     * Updates the text to include all the player's scores.
      */
-    public void npcScore() {
-        if (difficulty == 1 && player2.easyNPC()) {
-            player2.setScore();
+    private void updateScore(){
+        score.setText("Score \n" + player1.getName() + ":  " + String.valueOf(player1.getScore()) + "\n" + player2.getName() +
+                ":  " + String.valueOf(player2.getScore()) + "\n" + player3.getName() + ":  " + String.valueOf(player3.getScore())
+                + "\n" + player4.getName() + ":  " + String.valueOf(player4.getScore()));
+     }
+
+    /**
+    * Updates the text area with information of the actions that happened in the game.
+    * @param text Write text you want to display in the text area in the game.
+    */
+    public void updateAction(String text) {
+        textArea.setText(textArea.getText() + "\n" + text);
+      }
+
+      /**
+      * A method that sets the score of the NPC:s depending on if the answer right.
+      * If the difficulty is higher than the NPC:s have a higher chance of answering right.
+      * @param player Choose NPC player to set score.
+      */
+      public boolean npcScore(Player player) {
+        if (difficulty == 1 && player.easyNPC()) {
+            player.setScore();
+            return true;
         }
-        else if (difficulty == 1 && player3.easyNPC()) {
-            player3.setScore();
+        else if(difficulty == 2 && player.mediumNPC()) {
+            player.setScore();
+            return true;
         }
-        else if (difficulty == 1 && player4.easyNPC()) {
-            player4.setScore();
+        else if(difficulty == 3 && player.hardNPC()) {
+            player.setScore();
+            return true;
         }
-        else if(difficulty == 2 && player2.mediumNPC()) {
-            player2.setScore();
-        }
-        else if(difficulty == 2 && player3.mediumNPC()) {
-            player3.setScore();
-        }
-        else if(difficulty == 2 && player4.mediumNPC()) {
-            player4.setScore();
-        }
-        else if(difficulty == 3 && player2.hardNPC()) {
-            player2.setScore();
-        }
-        else if(difficulty == 3 && player3.hardNPC()) {
-            player3.setScore();
-        }
-        else if(difficulty == 3 && player4.hardNPC()) {
-            player4.setScore();
-        }
+        return false;
     }
 
     public static void main(String[]args) {

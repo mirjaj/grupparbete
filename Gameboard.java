@@ -1,9 +1,6 @@
 import javafx.application.Application;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import javafx.stage.Stage;
@@ -20,10 +17,8 @@ public class Gameboard extends Application{
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Geni");
-
         GraphicsContext g = canvas.getGraphicsContext2D();
         drawGameBoard(g);
-
         movePlayer(0, 1); //Draws player One on the board
         moveAIOne(0, 7); //Draws player Two on the board
         moveAITwo(0, 13);//Draws player Three on the board
@@ -59,7 +54,6 @@ public class Gameboard extends Application{
      * Note: No logical operations are done other than those that are necessary in order to draw the
      * piece on the correct square.
      */
-
     public void movePlayer(int previousSquare, int currentSquare){
         GraphicsContext g = canvas.getGraphicsContext2D();
         drawPiece(previousSquare, Color.WHITE, g, 1);
@@ -106,8 +100,8 @@ public class Gameboard extends Application{
         else if(player == 4){
             downAdjust = 60;
         }
-        //These conditions makes sure that the piece is drawn correctly.
 
+        //These conditions makes sure that the piece is drawn correctly.
         g.setFill(colour);
 
         if(square >= 1 && square <= 7){
@@ -177,38 +171,25 @@ public class Gameboard extends Application{
         drawGameSquare(50, 540, Color.RED, g);
         drawGameSquare(50, 670, Color.YELLOW, g);
     }
+
     /* gameOver()
-     * This method is called upon in the main method once the victory condition is met and the game is finished.
-     * The method takes the winning player as an argument.
-     *
-     * @param winningPlayer, the player who meets the victory condition of the game.
-     */
-    public void gameOver(Player winningPlayer){
-        Label label = new Label("Game Over!\n\n"  + winningPlayer.getName() + " has won the game!");
-        Group root = new Group();
+      * This method is called upon in the main method once the victory condition is met and the game is finished.
+      * The method takes the winning player as an argument.
+      *
+      * @param winningPlayer, the player who meets the victory condition of the game.
+      */
+     public String gameOver(Player winningPlayer){
+         String text = ("Game Over!\n\n"  + winningPlayer.getName() + " has won the game!");
+         return text;
 
-        Stage gameOverWindow = new Stage();
-        gameOverWindow.setTitle("Game Over!");
+     }
 
-        root.getChildren().add(label);
-        gameOverWindow.setScene(new Scene(root));
-        gameOverWindow.show();
-    }
-    /* gameOver()
-     * This method is a overloaded version of the regular gameOver() method, but it takes no parameters.
-     * If this method is called it will declare no player the winner.
-     */
-    public void gameOver(){
-        Label label = new Label("Game Over!\n\n All the questions has been answered, but no player has reached the required score.");
-        Group root = new Group();
-
-        Stage gameOverWindow = new Stage();
-        gameOverWindow.setTitle("Game Over!");
-
-        root.getChildren().add(label);
-        gameOverWindow.setScene(new Scene(root));
-        gameOverWindow.show();
-    }
-
-
+     /* gameOver()
+      * This method is a overloaded version of the regular gameOver() method, but it takes no parameters.
+      * If this method is called it will declare no player the winner.
+      */
+     public String gameOver(){
+         String text = ("Game Over!\n\n All the questions have been answered, but no player has reached the required score. \n\n");
+         return text;
+     }
 }

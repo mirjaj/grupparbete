@@ -96,7 +96,7 @@ public class Player  {
      * @return True if player has reached the score 20 or higher.
      */
     public boolean isFinished() {
-        return score >=20;
+        return score >=50;
     }
 
     /**
