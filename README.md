@@ -1,15 +1,16 @@
 ## Project description:
- We want to create a trivia game that is based on a board game called Geni.
- The game is planned to include following features:
- * Have up to 4 players/NPC:s that play simultaneously. 
+ We have created a trivia game that is based on a board game called Geni.
+ The game has the following features:
+ * Have 3 NPC that plays against the user. 
+ * A main menu.
+ * The difficulties easy, medium and hard.  
  * Questions based on different categories.
  * A graphical visualization of the board game.
- * Be able to answer questions by choosing between different checkboxes and by writing. 
+ * Be able to answer questions by choosing between different checkboxes. 
+ * A score limit. 
+ * A textbox that displays the users and the NPC:s actions. 
  
- Features will be added and/or deleted depending on how the project is going. 
- 
- We are going to begin testing our code with unit tests while we are developing our game. 
- Later on we may find other ways to test the game. 
+ We have tested our code using unit test while developing our game. Also we have test runned the game multiple times to see if it has any bugs. 
  
  #### How to play
 The player is at first presented by a main menu, if the player wants to play the game the player can proceed by clicking "start game".
@@ -47,8 +48,9 @@ Java FX framework you can look it up here:
 This game is run from the main class. That means that the player needs to
 be able to run java programs in order to play the game. 
 
-Also, it is worth to note that the player needs to have the background image which is in the main menu, 
-stored in a specified path to run the program along with the other images used in the game.
+Also, it is worth to note that the you need to store the images "White_Dice.png" and "cool-background.jpg" in your computer, which are found in the folder called Images. Then you need to write down the filepath of the stored images in the class Main.java.  
+![Where to write the filepath](/Screenshots/Filepath.jpg)
+Write your computers filepath of the images in the marked area which you can see in the picture above. 
 
 No extention libraries are required though, since Java FX is a standard library. The player
 needs to have all the assosciated classes in order to play the game. 
