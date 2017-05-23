@@ -48,11 +48,9 @@ Java FX framework you can look it up here:
 This game is run from the main class. That means that the player needs to
 be able to run java programs in order to play the game. 
 
-Also, it is worth to note that the you need to store the images "White_Dice.png" and "cool-background.jpg" in your computer, which are found in the folder called Images. Then you need to write down the filepath of the stored images in the class Main.java.  
-![Where to write the filepath](/Screenshots/Filepath.jpg)
-Write your computers filepath of the images in the marked area which you can see in the picture above. 
+After cloning into the repo you run the program from the src folder. The images are here as well, and the program will find them.
 
-No extention libraries are required though, since Java FX is a standard library. The player
+No extention libraries are required, since Java FX is a standard library. The player
 needs to have all the assosciated classes in order to play the game. 
 
 These required classes are:
